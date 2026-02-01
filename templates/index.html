@@ -1,0 +1,747 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>CIET - Library</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Gp
+  * Template URL: https://bootstrapmade.com/gp-free-multipurpose-html-bootstrap-template/
+  * Updated: Aug 15 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto me-lg-0">
+        <!-- Uncomment the line below if you also wish to use an image logo -->
+        <!-- <img src="assets/img/logo.png" alt=""> -->
+        <h1 class="sitename">CIET Library</h1>
+        <span></span>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="#hero" class="active">Home<br></a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          
+          <li><a href="{% url 'login' %}">Login</a></li>
+          <li><a href="{% url 'signup' %}">Signup</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="{% url 'login' %}">Get Started</a>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section dark-background">
+
+      <img src="{% static 'assets/img/front.jpg' %}" alt="" data-aos="fade-in">
+
+      <div class="container">
+
+        <div class="row justify-content-center text-center" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-xl-6 col-lg-8">
+            <h2>Empowering Knowledge Through Innovation
+<span>.</span></h2>
+            <p>We are a team of passionate library professionals</p>
+          </div>
+        </div>
+
+        <!-- <div class="row gy-4 mt-5 justify-content-center" data-aos="fade-up" data-aos-delay="200">
+          <div class="col-xl-2 col-md-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="icon-box">
+              <i class="bi bi-binoculars"></i>
+              <h3><a href="">Lorem Ipsum</a></h3>
+            </div>
+          </div>
+          <div class="col-xl-2 col-md-4" data-aos="fade-up" data-aos-delay="400">
+            <div class="icon-box">
+              <i class="bi bi-bullseye"></i>
+              <h3><a href="">Dolor Sitema</a></h3>
+            </div>
+          </div>
+          <div class="col-xl-2 col-md-4" data-aos="fade-up" data-aos-delay="500">
+            <div class="icon-box">
+              <i class="bi bi-fullscreen-exit"></i>
+              <h3><a href="">Sedare Perspiciatis</a></h3>
+            </div>
+          </div>
+          <div class="col-xl-2 col-md-4" data-aos="fade-up" data-aos-delay="600">
+            <div class="icon-box">
+              <i class="bi bi-card-list"></i>
+              <h3><a href="">Magni Dolores</a></h3>
+            </div>
+          </div>
+          <div class="col-xl-2 col-md-4" data-aos="fade-up" data-aos-delay="700">
+            <div class="icon-box">
+              <i class="bi bi-gem"></i>
+              <h3><a href="">Nemos Enimade</a></h3>
+            </div>
+          </div>
+        </div> -->
+
+      </div>
+
+    </section><!-- /Hero Section -->
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+  <div class="col-lg-6 order-1 order-lg-2">
+    <img src="{% static 'assets/img/about.jpg' %}" class="img-fluid" alt="">
+  </div>
+  <div class="col-lg-6 order-2 order-lg-1 content"><br><br><br>
+    <h3>Transforming Libraries with Smart Solutions</h3>
+    <p class="fst-italic">
+      Our library system enhances accessibility, streamlines management, and improves the overall reading experience for students and staff.
+    </p>
+    <ul>
+      <li><i class="bi bi-check2-all"></i> <span>Efficient book tracking, lending, and return system for hassle-free library operations.</span></li>
+      <li><i class="bi bi-check2-all"></i> <span>Digital catalog with quick search, category filtering, and real-time availability.</span></li>
+      <li><i class="bi bi-check2-all"></i> <span>Automated reminders, member management, and detailed analytics for smooth and smart library administration.</span></li>
+    </ul>
+    <p>
+      Our solution ensures better organization, improved accessibility, and a modern reading culture by integrating powerful digital tools into your library system.
+    </p>
+  </div>
+</div>
+
+
+      </div>
+
+    </section><!-- /About Section -->
+
+    <!-- Clients Section -->
+    <section id="clients" class="clients section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="swiper init-swiper">
+          <script type="application/json" class="swiper-config">
+            {
+              "loop": true,
+              "speed": 600,
+              "autoplay": {
+                "delay": 5000
+              },
+              "slidesPerView": "auto",
+              "pagination": {
+                "el": ".swiper-pagination",
+                "type": "bullets",
+                "clickable": true
+              },
+              "breakpoints": {
+                "320": {
+                  "slidesPerView": 2,
+                  "spaceBetween": 40
+                },
+                "480": {
+                  "slidesPerView": 3,
+                  "spaceBetween": 60
+                },
+                "640": {
+                  "slidesPerView": 4,
+                  "spaceBetween": 80
+                },
+                "992": {
+                  "slidesPerView": 6,
+                  "spaceBetween": 120
+                }
+              }
+            }
+          </script>
+          <div class="swiper-wrapper align-items-center">
+            <div class="swiper-slide"><img src="{% static 'assets/img/clients/client-1.png' %}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{% static 'assets/img/clients/client-2.png' %}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{% static 'assets/img/clients/client-3.png' %}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{% static 'assets/img/clients/client-4.png' %}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{% static 'assets/img/clients/client-5.png' %}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{% static 'assets/img/clients/client-6.png' %}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{% static 'assets/img/clients/client-7.png' %}" class="img-fluid" alt=""></div>
+            <div class="swiper-slide"><img src="{% static 'assets/img/clients/client-8.png' %}" class="img-fluid" alt=""></div>
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+
+    </section><!-- /Clients Section -->
+
+    <!-- Features Section -->
+    <section id="features" class="features section">
+
+      <div class="container">
+
+        <div class="row gy-4">
+          <div class="features-image col-lg-6" data-aos="fade-up" data-aos-delay="100"><img src="{% static 'assets/img/library1.jpg' %}" alt=""></div>
+          <div class="col-lg-6">
+
+  <div class="features-item d-flex ps-0 ps-lg-3 pt-4 pt-lg-0" data-aos="fade-up" data-aos-delay="200">
+    <i class="bi bi-archive flex-shrink-0"></i>
+    <div>
+      <h4>Smart Book Archiving</h4>
+      <p>Organize and store books efficiently with a structured, searchable archiving system built for modern libraries.</p>
+    </div>
+  </div><!-- End Features Item-->
+
+  <div class="features-item d-flex mt-5 ps-0 ps-lg-3" data-aos="fade-up" data-aos-delay="300">
+    <i class="bi bi-basket flex-shrink-0"></i>
+    <div>
+      <h4>Easy Borrow & Return</h4>
+      <p>Seamlessly manage book lending with quick issue/return features and automated reminders for overdue books.</p>
+    </div>
+  </div><!-- End Features Item-->
+
+  <div class="features-item d-flex mt-5 ps-0 ps-lg-3" data-aos="fade-up" data-aos-delay="400">
+    <i class="bi bi-broadcast flex-shrink-0"></i>
+    <div>
+      <h4>Real-Time Notifications</h4>
+      <p>Instant alerts for new arrivals, due dates, library events, and announcements to keep members informed.</p>
+    </div>
+  </div><!-- End Features Item-->
+
+  <div class="features-item d-flex mt-5 ps-0 ps-lg-3" data-aos="fade-up" data-aos-delay="500">
+    <i class="bi bi-camera-reels flex-shrink-0"></i>
+    <div>
+      <h4>Digital Media Access</h4>
+      <p>Provide students access to e-books, journals, videos, and digital study materials anytime, anywhere.</p>
+    </div>
+  </div><!-- End Features Item-->
+
+</div>
+</div>
+
+      </div>
+
+    </section><!-- /Features Section -->
+
+    <!-- Services Section -->
+    <section id="services" class="services section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Services</h2>
+        <p>Check our Services</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row gy-4">
+
+  <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+    <div class="service-item position-relative">
+      <div class="icon">
+        <i class="bi bi-activity"></i>
+      </div>
+      <a href="service-details.html" class="stretched-link">
+        <h3>Library Activity Insights</h3>
+      </a>
+      <p>Track daily library activity, user engagement, and book circulation trends with smart analytics for better planning.</p>
+    </div>
+  </div><!-- End Service Item -->
+
+  <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+    <div class="service-item position-relative">
+      <div class="icon">
+        <i class="bi bi-broadcast"></i>
+      </div>
+      <a href="service-details.html" class="stretched-link">
+        <h3>Announcements & Alerts</h3>
+      </a>
+      <p>Broadcast important updates such as new arrivals, due-date reminders, and event notifications instantly to all members.</p>
+    </div>
+  </div><!-- End Service Item -->
+
+  <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+    <div class="service-item position-relative">
+      <div class="icon">
+        <i class="bi bi-easel"></i>
+      </div>
+      <a href="service-details.html" class="stretched-link">
+        <h3>Digital Resource Board</h3>
+      </a>
+      <p>Access e-books, journals, study materials, and digital media through an organized and user-friendly digital board.</p>
+    </div>
+  </div><!-- End Service Item -->
+
+  <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+    <div class="service-item position-relative">
+      <div class="icon">
+        <i class="bi bi-bounding-box-circles"></i>
+      </div>
+      <a href="service-details.html" class="stretched-link">
+        <h3>Advanced Book Search</h3>
+      </a>
+      <p>Find books instantly with category filtering, keyword search, and real-time availability powered by intelligent indexing.</p>
+      <a href="service-details.html" class="stretched-link"></a>
+    </div>
+  </div><!-- End Service Item -->
+
+  <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+    <div class="service-item position-relative">
+      <div class="icon">
+        <i class="bi bi-calendar4-week"></i>
+      </div>
+      <a href="service-details.html" class="stretched-link">
+        <h3>Event & Schedule Management</h3>
+      </a>
+      <p>Manage library events, reading sessions, and weekly schedules with ease, ensuring smooth coordination for staff and users.</p>
+      <a href="service-details.html" class="stretched-link"></a>
+    </div>
+  </div><!-- End Service Item -->
+
+  <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+    <div class="service-item position-relative">
+      <div class="icon">
+        <i class="bi bi-chat-square-text"></i>
+      </div>
+      <a href="service-details.html" class="stretched-link">
+        <h3>Feedback & Support</h3>
+      </a>
+      <p>Allow users to share feedback, request books, and report issues, improving communication between library staff and members.</p>
+      <a href="service-details.html" class="stretched-link"></a>
+    </div>
+  </div><!-- End Service Item -->
+
+</div>
+
+      </div>
+
+    </section><!-- /Services Section -->
+
+    <!-- Call To Action Section -->
+    <section id="call-to-action" class="call-to-action section dark-background">
+
+      <img src="{% static 'assets/img/library2.jpg' %}" alt="">
+
+      <div class="container">
+  <div class="row justify-content-center" data-aos="zoom-in" data-aos-delay="100">
+    <div class="col-xl-10">
+      <div class="text-center">
+        <h3>Explore Our Library Services</h3>
+        <p>Discover a smarter, more organized, and fully digital library experience. Access thousands of books, journals, e-resources, and research materials with ease—anytime, anywhere. Join us in creating a stronger reading and learning culture.</p>
+        <a class="cta-btn" href="#">Get Started</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    </section><!-- /Call To Action Section -->
+
+    <!-- Portfolio Section -->
+    
+
+    <!-- Stats Section -->
+    <section id="stats" class="stats section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4 align-items-center justify-content-between">
+
+          <div class="col-lg-5">
+            <img src="{% static 'assets/img/library3.jpg' %}" alt="" class="img-fluid">
+          </div>
+
+          <div class="col-lg-6">
+
+  <h3 class="fw-bold fs-2 mb-3">Empowering Libraries with Smart Solutions</h3>
+  <p>
+    Our modern library management system enhances accessibility, streamlines operations, and improves the reading experience for students, staff, and visitors. Designed to make library workflows faster, easier, and more efficient.
+  </p>
+
+  <div class="row gy-4">
+
+    <div class="col-lg-6">
+      <div class="stats-item d-flex">
+        <i class="bi bi-emoji-smile flex-shrink-0"></i>
+        <div>
+          <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
+          <p><strong>Satisfied Users</strong> <span>enjoying seamless access to resources</span></p>
+        </div>
+      </div>
+    </div><!-- End Stats Item -->
+
+    <div class="col-lg-6">
+      <div class="stats-item d-flex">
+        <i class="bi bi-journal-richtext flex-shrink-0"></i>
+        <div>
+          <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
+          <p><strong>Books & Resources</strong> <span>digitally organized for quick search</span></p>
+        </div>
+      </div>
+    </div><!-- End Stats Item -->
+
+    <div class="col-lg-6">
+      <div class="stats-item d-flex">
+        <i class="bi bi-headset flex-shrink-0"></i>
+        <div>
+          <span data-purecounter-start="0" data-purecounter-end="1453" data-purecounter-duration="1" class="purecounter"></span>
+          <p><strong>Support Hours</strong> <span>ensuring uninterrupted library service</span></p>
+        </div>
+      </div>
+    </div><!-- End Stats Item -->
+
+    <div class="col-lg-6">
+      <div class="stats-item d-flex">
+        <i class="bi bi-people flex-shrink-0"></i>
+        <div>
+          <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1" class="purecounter"></span>
+          <p><strong>Dedicated Staff</strong> <span>working to maintain a smarter library</span></p>
+        </div>
+      </div>
+    </div><!-- End Stats Item -->
+
+  </div>
+
+
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- /Stats Section -->
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials section dark-background">
+
+      <img src="{% static 'assets/img/testimonials-bg.jpg' %}" class="testimonials-bg" alt="">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="swiper init-swiper">
+          <script type="application/json" class="swiper-config">
+            {
+              "loop": true,
+              "speed": 600,
+              "autoplay": {
+                "delay": 5000
+              },
+              "slidesPerView": "auto",
+              "pagination": {
+                "el": ".swiper-pagination",
+                "type": "bullets",
+                "clickable": true
+              }
+            }
+          </script>
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="{% static 'assets/img/testimonials/testimonials-1.jpg' %}" class="testimonial-img" alt="">
+                <h3>Saul Goodman</h3>
+                <h4>Ceo &amp; Founder</h4>
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="{% static 'assets/img/testimonials/testimonials-2.jpg' %}" class="testimonial-img" alt="">
+                <h3>Sara Wilsson</h3>
+                <h4>Designer</h4>
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="{% static 'assets/img/testimonials/testimonials-3.jpg' %}" class="testimonial-img" alt="">
+                <h3>Jena Karlis</h3>
+                <h4>Store Owner</h4>
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="{% static 'assets/img/testimonials/testimonials-4.jpg' %}" class="testimonial-img" alt="">
+                <h3>Matt Brandon</h3>
+                <h4>Freelancer</h4>
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.</span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="{% static 'assets/img/testimonials/testimonials-5.jpg' %}" class="testimonial-img" alt="">
+                <h3>John Larson</h3>
+                <h4>Entrepreneur</h4>
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  <i class="bi bi-quote quote-icon-left"></i>
+                  <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.</span>
+                  <i class="bi bi-quote quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- End testimonial item -->
+
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+
+    </section><!-- /Testimonials Section -->
+
+
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Contact</h2>
+        <p>Contact Us</p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="mb-4" data-aos="fade-up" data-aos-delay="200">
+         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.5701121700704!2d76.76910857480829!3d10.995785189166618!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba86104b8f60b01%3A0x75c28a0ddc379a9d!2sCoimbatore%20Institute%20of%20Engineering%20and%20Technology!5e0!3m2!1sen!2sin!4v1765173159845!5m2!1sen!2sin" width="100%" height="270" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div><!-- End Google Maps -->
+
+        <div class="row gy-4">
+
+          <div class="col-lg-4">
+            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+              <i class="bi bi-geo-alt flex-shrink-0"></i>
+              <div>
+                <h3>Address</h3>
+                <p>Narasipuram(PO), Thondamuthur(Via), Vellimalaipattinam, Coimbatore.
+Tamil Nadu. Pincode-641109.</p>
+              </div>
+            </div><!-- End Info Item -->
+
+            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+              <i class="bi bi-telephone flex-shrink-0"></i>
+              <div>
+                <h3>Call Us</h3>
+                <p>+91 9790038605</p>
+              </div>
+            </div><!-- End Info Item -->
+
+            <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
+              <i class="bi bi-envelope flex-shrink-0"></i>
+              <div>
+                <h3>Email Us</h3>
+                <p>info@cietcbe.edu.in</p>
+              </div>
+            </div><!-- End Info Item -->
+
+          </div>
+
+          <div class="col-lg-8">
+  <form action="{% url 'contact_email' %}" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+  {% csrf_token %}
+  <div class="row gy-4">
+
+    <div class="col-md-6">
+      <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+    </div>
+
+    <div class="col-md-6 ">
+      <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+    </div>
+
+    <div class="col-md-12">
+      <input type="text" class="form-control" name="subject" placeholder="Subject" required>
+    </div>
+
+    <div class="col-md-12">
+      <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
+    </div>
+
+    <div class="col-md-12 text-center">
+      <div class="loading">Loading</div>
+      
+
+      <button type="submit">Send Message</button>
+    </div>
+
+  </div>
+</form>
+
+</div><!-- End Contact Form -->
+
+
+        </div>
+
+      </div>
+
+    </section><!-- /Contact Section -->
+
+  </main>
+
+  <footer id="footer" class="footer dark-background">
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-4 col-md-6 footer-about">
+            <a href="index.html" class="logo d-flex align-items-center">
+              <span class="sitename">CIET Library</span>
+            </a>
+            <div class="footer-contact pt-3">
+              <p>Narasipuram(PO), Thondamuthur(Via), Vellimalaipattinam, Coimbatore.
+Tamil Nadu. Pincode-641109.</p>
+             
+              <p class="mt-3"><strong>Phone:</strong> <span>+91 9790038605</span></p>
+              <p><strong>Email:</strong> <span>info@cietcbe.edu.in</span></p>
+            </div>
+            <div class="social-links d-flex mt-4">
+              <a href=""><i class="bi bi-twitter-x"></i></a>
+              <a href=""><i class="bi bi-facebook"></i></a>
+              <a href=""><i class="bi bi-instagram"></i></a>
+              <a href=""><i class="bi bi-linkedin"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-3 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bi bi-chevron-right"></i> <a href="#"> Home</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#"> About us</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#"> Services</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#"> Terms of service</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#"> Privacy policy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-md-3 footer-links">
+            <h4>Our Services</h4>
+            <ul>
+              <li><i class="bi bi-chevron-right"></i> <a href="#"> Web Design</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#"> Web Development</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#"> Product Management</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#"> Marketing</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#"> Graphic Design</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-4 col-md-12 footer-newsletter">
+            <h4>Our Newsletter</h4>
+            <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
+            <form action="forms/newsletter.php" method="post" class="php-email-form">
+              <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
+              <div class="loading">Loading</div>
+              <div class="error-message"></div>
+              <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="copyright">
+      <div class="container text-center">
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">CIET Library.</strong> <span>All Rights Reserved.</span></p>
+        <div class="credits">
+          <!-- All the links in the footer should remain intact. -->
+          <!-- You can delete the links only if you've purchased the pro version. -->
+          <!-- Licensing information: https://bootstrapmade.com/license/ -->
+          <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+         
+        </div>
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

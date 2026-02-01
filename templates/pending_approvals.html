@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pending Approvals | Management Portal</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* HEADER & ACTIONS */
+        .header-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 10px;
+        }
+
+        h2.main-title {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f172a;
+            letter-spacing: -0.5px;
+        }
+
+        /* BACK BUTTON STYLE */
+        a.button-back {
+            padding: 8px 16px;
+            background: #ffffff;
+            color: #475569;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            white-space: nowrap;
+        }
+
+        a.button-back:hover {
+            background: #f1f5f9;
+            transform: translateX(-3px);
+        }
+
+        /* 📏 SCROLLABLE TABLE SETTINGS */
+        .table-wrapper {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+            
+            /* DYNAMIC HEIGHT LOGIC */
+            max-height: 650px; 
+            overflow-y: auto; 
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+            min-width: 800px;
+        }
+
+        /* STICKY HEADER */
+        th {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: #f8fafc;
+            color: #64748b;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 16px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        td {
+            padding: 16px;
+            font-size: 14px;
+            color: #334155;
+            border-bottom: 1px solid #f1f5f9;
+            background: white;
+        }
+
+        tr:hover td {
+            background-color: #f8fafc;
+        }
+
+        /* ROLE BADGE */
+        .role-badge {
+            background: #f1f5f9;
+            color: #475569;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        /* ACTION BUTTONS */
+        .btn-group {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        a.btn {
+            padding: 8px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .approve {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .approve:hover {
+            background: #22c55e;
+            color: white;
+        }
+
+        .delete {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .delete:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        /* EMPTY STATE */
+        .empty-row td {
+            padding: 60px 20px;
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        @media (max-width: 600px) {
+            h2.main-title { font-size: 18px; }
+            body { padding: 15px; }
+            /* Adjusted max-height for mobile screens */
+            .table-wrapper { max-height: 500px; } 
+        }
+    </style>
+</head>
+
+<body>
+<br><br>
+<div class="container">
+    <div class="header-area">
+        <h2 class="main-title">Pending Approvals</h2>
+        <a href="{% url 'home' %}" class="button-back">
+            <span>←</span> Back
+        </a>
+    </div>
+
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email Address</th>
+                    <th>Department</th>
+                    <th>Role</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for user in pending %}
+                <tr>
+                    <td style="font-weight: 600; color: #0f172a;">{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.department }}</td>
+                    <td><span class="role-badge">{{ user.role }}</span></td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="{% url 'approve_user' user.id %}" class="btn approve">Approve</a>
+                            <a href="{% url 'delete_user' user.id %}" class="btn delete">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr class="empty-row">
+                    <td colspan="5">No pending approvals found at this time.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Records | Management</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* HEADER & ACTIONS */
+        .header-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 15px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-grow: 1;
+        }
+
+        /* SEARCH BOX DESIGN */
+        .search-container {
+            position: relative;
+            max-width: 300px;
+            width: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 8px 12px 8px 35px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            transition: all 0.2s;
+            background: #ffffff;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: 10px center;
+            background-size: 18px;
+            box-sizing: border-box;
+        }
+
+        .search-input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f172a;
+            letter-spacing: -0.5px;
+            white-space: nowrap;
+        }
+
+        a.button {
+            padding: 8px 16px;
+            background: #ffffff;
+            color: #475569;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            white-space: nowrap;
+        }
+
+        a.button:hover {
+            background: #f1f5f9;
+            transform: translateX(-3px);
+            border-color: #cbd5e1;
+        }
+
+        /* TABLE */
+        .table-wrapper {
+            background: white;
+            border-radius: 12px;
+            height: 650px;
+            overflow: auto;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            min-width: 850px;
+        }
+
+        th {
+            position: sticky;
+            top: 0;
+            background: #f8fafc;
+            color: #64748b;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        td {
+            padding: 16px 20px;
+            font-size: 14px;
+            color: #334155;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        tr:hover td {
+            background-color: #f8fafc;
+        }
+
+        .role-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .time-text {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .date-text {
+            color: #64748b;
+        }
+
+        .ip-text {
+            font-family: monospace;
+            font-size: 13px;
+            color: #475569;
+        }
+
+        .empty-row td {
+            padding: 50px 20px;
+            text-align: center;
+            color: #94a3b8;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+<br><br>
+
+<div class="container">
+    <div class="header-area">
+        <div class="header-left">
+            <h2>Login Records</h2>
+            <div class="search-container">
+                <input type="text" id="recordSearch" class="search-input" placeholder="Search records...">
+            </div>
+        </div>
+        <a href="{% url 'home' %}" class="button">← Back to Home</a>
+    </div>
+
+    <div class="table-wrapper">
+        <table id="recordsTable">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>IP Address</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rec in records %}
+                <tr>
+                    <td style="font-weight:600">{{ rec.username }}</td>
+                    <td>{{ rec.email }}</td>
+                    <td><span class="role-badge">{{ rec.role }}</span></td>
+                    <td class="ip-text">{{ rec.ip_address|default:"-" }}</td>
+                    <td class="date-text">{{ rec.login_date }}</td>
+                    <td class="time-text">{{ rec.login_time }}</td>
+                </tr>
+                {% empty %}
+                <tr class="empty-row">
+                    <td colspan="6">No login records found in the database.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+document.getElementById('recordSearch').addEventListener('keyup', function () {
+    let filter = this.value.toUpperCase();
+    let rows = document.querySelector("#recordsTable tbody").rows;
+
+    for (let i = 0; i < rows.length; i++) {
+        let text = rows[i].textContent.toUpperCase();
+        rows[i].style.display = text.includes(filter) ? "" : "none";
+    }
+});
+</script>
+
+</body>
+</html>

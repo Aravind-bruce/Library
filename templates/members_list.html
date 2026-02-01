@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Members List | Management Portal</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* HEADER & ACTIONS */
+        .header-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 15px;
+        }
+
+        h2.main-title {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 700;
+            color: #0f172a;
+            letter-spacing: -0.5px;
+        }
+
+        /* BACK BUTTON STYLE */
+        a.button-back {
+            padding: 8px 16px;
+            background: #ffffff;
+            color: #475569;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            white-space: nowrap;
+        }
+
+        a.button-back:hover {
+            background: #f1f5f9;
+            transform: translateX(-3px);
+        }
+
+        /* ---- SUCCESS MESSAGE ---- */
+        .success-message {
+            background: #ecfdf5;
+            color: #065f46;
+            padding: 14px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border: 1px solid #a7f3d0;
+            font-size: 14px;
+        }
+
+        /* ---- TOP CARDS ---- */
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            flex: 1;
+            min-width: 250px;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+        }
+
+        .card h3 {
+            margin: 8px 0 0 0;
+            font-size: 26px;
+            color: #2563eb;
+            font-weight: 700;
+        }
+
+        /* ---- SEARCH & SECTION HEADERS ---- */
+        .section-header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+
+        .section-header h2 {
+            font-size: 17px;
+            font-weight: 700;
+            color: #334155;
+            margin: 0;
+        }
+
+        .search-box {
+            flex-grow: 1;
+            max-width: 300px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        /* ---- ✨ DYNAMIC HEIGHT TABLE WRAPPER ✨ ---- */
+        .table-wrapper {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+            margin-bottom: 30px;
+            
+            /* Logic: Height follows data up to 400px, then scrolls */
+            max-height: 400px; 
+            overflow-y: auto;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            min-width: 700px;
+        }
+
+        /* STICKY TABLE HEADERS (Only visible if scrolling occurs) */
+        th {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: #f8fafc;
+            color: #64748b;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            padding: 14px 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        td {
+            padding: 14px 20px;
+            font-size: 13.5px;
+            color: #334155;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        /* DELETE BUTTON */
+        .delete-btn {
+            padding: 6px 12px;
+            background: #fee2e2;
+            color: #dc2626;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .delete-btn:hover {
+            background: #dc2626;
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .search-box {
+                max-width: 100%;
+                width: 100%;
+            }
+        }
+    </style>
+
+    <script>
+        function searchTable(inputId, tableId) {
+            let input = document.getElementById(inputId).value.toLowerCase();
+            let rows = document.querySelectorAll(`#${tableId} tbody tr`);
+
+            rows.forEach(row => {
+                let text = row.innerText.toLowerCase();
+                if (row.classList.contains('empty-row')) return;
+                row.style.display = text.includes(input) ? "" : "none";
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <br><br>
+
+<div class="container">
+
+    <div class="header-area">
+        <h2 class="main-title">Approved Members</h2>
+        <a href="{% url 'home' %}" class="button-back">
+            <span>←</span> Back
+        </a>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="success-message">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="cards">
+        <div class="card">
+            <p>Approved Students</p>
+            <h3>{{ approved_students.count }}</h3>
+        </div>
+
+        <div class="card">
+            <p>Approved Staff</p>
+            <h3>{{ approved_staff.count }}</h3>
+        </div>
+    </div>
+
+    <div class="section-header">
+        <h2>Approved Students</h2>
+        <div class="search-box">
+            <input type="text" id="studentSearch" onkeyup="searchTable('studentSearch','studentsTable')" placeholder="Search Students...">
+        </div>
+    </div>
+
+    <div class="table-wrapper">
+        <table id="studentsTable">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email Address</th>
+                    <th>Department</th>
+                    <th>Year</th>
+                    <th style="text-align: right;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for student in approved_students %}
+            <tr>
+                <td style="font-weight: 600; color: #0f172a;">{{ student.username }}</td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.department }}</td>
+                <td><span style="background: #eff6ff; color: #2563eb; padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 600;">{{ student.year }} Year</span></td>
+                <td style="text-align: right;">
+                    <a class="delete-btn" href="{% url 'delete_student' student.id %}">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr class="empty-row"><td colspan="5" style="text-align:center; padding: 40px; color: #94a3b8;">No approved students found</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section-header">
+        <h2>Approved Staff / Mentors</h2>
+        <div class="search-box">
+            <input type="text" id="staffSearch" onkeyup="searchTable('staffSearch','staffTable')" placeholder="Search Staff...">
+        </div>
+    </div>
+
+    <div class="table-wrapper">
+        <table id="staffTable">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email Address</th>
+                    <th>Department</th>
+                    <th style="text-align: right;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for staff in approved_staff %}
+            <tr>
+                <td style="font-weight: 600; color: #0f172a;">{{ staff.username }}</td>
+                <td>{{ staff.email }}</td>
+                <td>{{ staff.department }}</td>
+                <td style="text-align: right;">
+                    <a class="delete-btn" href="{% url 'delete_staff' staff.id %}">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr class="empty-row"><td colspan="4" style="text-align:center; padding: 40px; color: #94a3b8;">No approved staff found</td></tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

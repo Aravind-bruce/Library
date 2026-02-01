@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Projects</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body { background: #f2f5f7; font-family: Arial; padding: 30px; }
+
+        /* ---------- COUNTER BOXES ---------- */
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 25px;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 20px 35px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        .stat-title {
+            font-size: 15px;
+            color: #444;
+            font-weight: bold;
+        }
+        .stat-count {
+            font-size: 28px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        /* ---------- PROJECT CARDS STRAIGHT LEFT ---------- */
+        .projects-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 330px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.15);
+        }
+
+        .title { font-size: 20px; font-weight: bold; }
+        .acc { color: #0066ff; font-weight: bold; }
+
+        .btn {
+            padding: 10px 15px;
+            background: #0066ff; 
+            color: white; 
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        /* ---------- SEARCH BOX ---------- */
+        .search-box {
+            width: 70%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.15);
+        }
+
+        .search-box input, .search-box select {
+            padding: 10px;
+            width: 28%;
+            margin-right: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .search-btn {
+            padding: 10px 18px;
+            background: #0066ff;
+            border: none;
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        /* ---------- PIE CHARTS ---------- */
+        .charts-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .chart-box {
+            width: 260px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        canvas {
+            width: 240px !important;
+            height: 240px !important;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2 style="text-align:center;">Project Records</h2>
+
+<!-- ⭐ TOP STATISTICS -->
+<div class="stats-container">
+    <div class="stat-box">
+        <div class="stat-title">Total Minor Projects</div>
+        <div class="stat-count">{{ total_minor }}</div>
+    </div>
+
+    <div class="stat-box">
+        <div class="stat-title">Total Major Projects</div>
+        <div class="stat-count">{{ total_major }}</div>
+    </div>
+</div>
+
+
+<!-- 🔍 SEARCH BAR -->
+<form method="GET" class="search-box">
+    <input type="text" name="keyword_search" placeholder="Search Keywords">
+
+    <select name="academic_year">
+        <option value="">Select Academic Year</option>
+        {% for y in academic_years %}
+            <option value="{{ y }}" {% if y == selected_year %}selected{% endif %}>{{ y }}</option>
+        {% endfor %}
+    </select>
+
+    <input type="text" name="common_search" placeholder="Search Anything">
+
+    <button class="search-btn" type="submit">Search</button>
+</form>
+
+
+<!-- 📄 PROJECT CARDS (LEFT ALIGNED) -->
+<div class="projects-row">
+    {% for p in projects %}
+    <div class="card">
+        <div class="title">{{ p.title }}</div>
+        <div class="acc">Accession No: {{ p.accession_number }}</div>
+
+        <p><b>Academic Year:</b> {{ p.academic_year }}</p>
+        <p><b>Project Type:</b> {{ p.project_type }}</p>
+        <p><b>Keywords:</b> {{ p.keywords }}</p>
+        <p><b>Leader:</b> {{ p.team_leader }} ({{ p.team_leader_reg }})</p>
+        <p><b>Department:</b> {{ p.department }}</p>
+
+        <a class="btn" href="{{ p.pdf_file.url }}" download>Download PDF</a>
+    </div>
+    {% endfor %}
+</div>
+
+
+
+<!-- ⭐ TWO PIE CHARTS -->
+<div class="charts-container">
+
+    <!-- Minor -->
+    <div class="chart-box">
+        <h4>Minor Projects</h4>
+        <canvas id="minorChart"></canvas>
+    </div>
+
+    <!-- Major -->
+    <div class="chart-box">
+        <h4>Major Projects</h4>
+        <canvas id="majorChart"></canvas>
+    </div>
+
+</div>
+
+
+<!-- ⭐ PIE CHART SCRIPT -->
+<script>
+const deptShort = {
+    "Artificial Intelligence and Data Science": "AI&DS",
+    "Artificial Intelligence and Machine Learning": "AI&ML",
+    "Computer Science Engineering": "CSE",
+    "Civil Engineering": "CIVIL",
+    "Electronics and Communication Engineering": "ECE",
+    "Electrical and Electronics Engineering": "EEE",
+    "Information Technology": "IT",
+    "Cyber Security": "CYBER",
+    "Mechanical Engineering": "MECH",
+    "VLSI Design": "VLSI",
+    "Mechatronics Engineering": "MECHTRON"
+};
+
+function createPie(ctxId, rawData) {
+    const labels = rawData.map(d => deptShort[d.department] || d.department);
+    const counts = rawData.map(d => d.count);
+
+    const colors = [
+        "#4A43EC", "#8A2BE2", "#00B8D9", "#FFD700",
+        "#7DD3FC", "#C084FC", "#34D399", "#60A5FA",
+        "#A78BFA", "#F472B6", "#FBBF24"
+    ];
+
+    new Chart(document.getElementById(ctxId), {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: counts,
+                backgroundColor: colors,
+                borderColor: "#fff",
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: false,
+            plugins: { legend: { position: "bottom" } }
+        }
+    });
+}
+
+createPie("minorChart", {{ minor_dept_stats|safe }});
+createPie("majorChart", {{ major_dept_stats|safe }});
+</script>
+
+</body>
+</html>

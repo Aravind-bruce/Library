@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | Secure Access</title>
+
+    <style>
+        /* Modern Font Stack */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f3f4f6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #1f2937;
+        }
+
+        /* 3D FLIP */
+        .flip-wrapper {
+            perspective: 2000px;
+            width: 100%;
+            max-width: 1100px;
+            padding: 20px;
+        }
+        .flip-card {
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+        .flip-animate {
+            transform: rotateY(180deg);
+        }
+
+        /* MAIN CARD */
+        .main-card {
+            width: 100%;
+            min-height: 750px; 
+            background: white;
+            border-radius: 28px;
+            display: flex;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* LEFT FORM AREA */
+        .left-section {
+            width: 55%;
+            padding: 40px 60px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* RIGHT IMAGE SECTION */
+        .right-section {
+            width: 45%;
+            background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3)), 
+                        url('https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=1600')
+                        no-repeat center center/cover;
+            position: relative;
+        }
+
+        /* BACK TO HOME BUTTON */
+        .home-link {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 10;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.9);
+            color: #1e293b;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid #e2e8f0;
+            transition: 0.2s;
+        }
+        .home-link:hover { background: #fff; transform: translateY(-2px); }
+
+        /* RESPONSIVE BREAKPOINT */
+        @media (max-width: 968px) {
+            .right-section { display: none; }
+            .left-section { width: 100%; padding: 30px; }
+            .main-card { min-height: auto; }
+            .home-link { position: relative; top: 0; right: 0; margin-bottom: 20px; align-self: flex-end; }
+        }
+
+        h2 { margin: 0 0 8px 0; font-size: 28px; font-weight: 700; color: #111827; }
+        .subtitle { color: #6b7280; font-size: 14px; margin-bottom: 25px; }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 480px) {
+            .form-grid { grid-template-columns: 1fr; }
+            .box { grid-column: span 1 !important; }
+        }
+
+        .box { margin-bottom: 18px; }
+        .full-width { grid-column: span 2; }
+
+        label { font-weight: 600; margin-bottom: 6px; display: block; color: #374151; font-size: 13px; }
+
+        input, select {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid #d1d5db;
+            outline: none;
+            transition: all 0.2s ease;
+            background: #f9fafb;
+            font-size: 14px;
+            box-sizing: border-box;
+            appearance: none; /* Removes default browser arrow */
+        }
+
+        /* IMPROVED DROPDOWN DESIGN */
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            background-size: 16px;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+
+        input:focus, select:focus {
+            border-color: #2563eb;
+            background-color: white;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        select:hover {
+            border-color: #9ca3af;
+        }
+
+        /* ROLE SELECTION CARDS */
+        .role-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+            margin-top: 8px;
+        }
+
+        @media (max-width: 550px) {
+            .role-container { grid-template-columns: 1fr; }
+            .role-content { flex-direction: row !important; gap: 15px; padding: 12px 20px !important; }
+        }
+
+        .role-card { cursor: pointer; position: relative; }
+        .role-card input { position: absolute; opacity: 0; }
+
+        .role-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 14px;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            transition: 0.3s;
+        }
+
+        .role-icon { font-size: 20px; margin-bottom: 5px; }
+        .role-name { font-size: 12px; font-weight: 600; color: #4b5563; }
+
+        .role-card input:checked + .role-content {
+            border-color: #2563eb;
+            background: #eff6ff;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.1);
+        }
+
+        /* BUTTONS */
+        button {
+            width: 100%;
+            padding: 16px;
+            background: #111827;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        button:hover { background: #1f2937; transform: translateY(-1px); }
+
+        .signin-text { margin-top: 25px; text-align: center; font-size: 14px; color: #6b7280; }
+        .signin-text a { color: #2563eb; font-weight: 600; text-decoration: none; }
+
+        .hidden-section { display: none; animation: fadeIn 0.4s ease-out; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="flip-wrapper">
+<div class="flip-card" id="flipBox">
+
+<div class="main-card">
+
+    <div class="left-section">
+        
+
+        <h2>Create Account</h2>
+        <p class="subtitle">Join our platform and manage your profile easily.</p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="form-grid">
+                <div class="box full-width">
+                    <label>Username</label>
+                    <input type="text" name="username" placeholder="Enter username" required>
+                </div>
+
+                <div class="box">
+                    <label>Email Address</label>
+                    <input type="email" name="email" placeholder="email@example.com" required>
+                </div>
+
+                <div class="box">
+                    <label>Phone Number</label>
+                    <input type="text" name="phone" placeholder="Enter phone" required>
+                </div>
+
+                <div class="box">
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="••••••••" required>
+                </div>
+
+                <div class="box">
+                    <label>Retype Password</label>
+                    <input type="password" name="repassword" placeholder="••••••••" required>
+                </div>
+            </div>
+
+            <label>Select Role</label>
+            <div class="role-container">
+                <label class="role-card">
+                    <input type="radio" name="role" value="student" onclick="toggleFields('student')" required>
+                    <div class="role-content">
+                        <span class="role-icon">🎓</span>
+                        <span class="role-name">Student</span>
+                    </div>
+                </label>
+
+                <label class="role-card">
+                    <input type="radio" name="role" value="staff" onclick="toggleFields('staff')" required>
+                    <div class="role-content">
+                        <span class="role-icon">👨‍🏫</span>
+                        <span class="role-name">Staff</span>
+                    </div>
+                </label>
+
+                <label class="role-card">
+                    <input type="radio" name="role" value="admin" onclick="toggleFields('admin')" required>
+                    <div class="role-content">
+                        <span class="role-icon">🛡️</span>
+                        <span class="role-name">Admin</span>
+                    </div>
+                </label>
+            </div>
+
+            <div class="form-grid">
+                <div id="department_section" class="box full-width hidden-section">
+                    <label>Department</label>
+                    <select name="department">
+                        <option value="" disabled selected>Choose Department</option>
+                
+                        <option value="Artificial Intelligence and Data Science">AI & DS</option>
+                        <option value="Artificial Intelligence and Machine Learning">AI & ML</option>
+                        <option value="Computer Science Engineering">CSE</option>
+                        <option value="Civil Engineering">CE</option>
+                        <option value="Electronics and Communication Engineering">ECE</option>
+                        <option value="Electrical and Electronics Engineering">EEE</option>
+                        <option value="Information Technology">IT</option>
+                        <option value="Cyber Security">CY</option>
+                        <option value="Mechanical Engineering">ME</option>
+                        <option value="VLSI Design">VLSI</option>
+                        <option value="Mechatronics Engineering">MT</option>
+                
+                    </select>
+                </div>
+                
+
+                <div id="year_section" class="box hidden-section">
+                    <label>Year</label>
+                    <select name="year">
+                        <option value="" disabled selected>Select Year</option>
+                        <option value="I">I Year</option>
+                        <option value="II">II Year</option>
+                        <option value="III">III Year</option>
+                        <option value="IV">IV Year</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit">Sign Up Now</button>
+        </form>
+
+        <p class="signin-text">
+            Already have an account? 
+            <a href="#" onclick="flipToLogin()">Login here</a>
+        </p>
+    </div>
+
+    <div class="right-section">
+    </div>
+</div>
+
+</div>
+</div>
+
+<script>
+    function toggleFields(role) {
+        const dept = document.getElementById("department_section");
+        const year = document.getElementById("year_section");
+
+        if (role === "student") {
+            dept.style.display = "block";
+            dept.classList.remove("full-width");
+            year.style.display = "block";
+        } 
+        else if (role === "staff") {
+            dept.style.display = "block";
+            dept.classList.add("full-width");
+            year.style.display = "none";
+        } 
+        else {
+            dept.style.display = "none";
+            year.style.display = "none";
+        }
+    }
+
+    function flipToLogin() {
+        document.getElementById("flipBox").classList.add("flip-animate");
+        setTimeout(() => {
+            window.location.href = "{% url 'login' %}";
+        }, 600);
+    }
+</script>
+
+</body>
+</html>

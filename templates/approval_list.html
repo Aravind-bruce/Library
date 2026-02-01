@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pending Approvals</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 10px; border: 1px solid #ccc; text-align: center; }
+        a.btn { padding: 8px 12px; background: green; color: white; border-radius: 4px; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<h2>Pending Approval Users</h2>
+
+<table>
+    <tr>
+        <th>Username</th>
+        <th>Role</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Department</th>
+        <th>Action</th>
+    </tr>
+
+    {% for user in pending %}
+    <tr>
+        <td>{{ user.username }}</td>
+        <td>{{ user.role }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.phone }}</td>
+        <td>{{ user.department }}</td>
+        <td>
+            <a href="{% url 'approve_user' user.username %}" class="btn">Approve</a>
+        </td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="6">No pending approvals.</td></tr>
+    {% endfor %}
+
+</table>
+
+</body>
+</html>
